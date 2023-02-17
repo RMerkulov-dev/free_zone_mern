@@ -10,6 +10,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import { register } from "./controllers/auth.js";
+import { verifyToken } from "./middleware/auth.js";
 
 //CONFIGURATIONS
 
@@ -56,7 +57,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    app.listen(PORT, () => console.log(`Server Ok Port: ${PORT}`));
 
     /* ADD DATA ONE TIME */
     // User.insertMany(users);
