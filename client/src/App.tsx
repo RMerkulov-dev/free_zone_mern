@@ -16,6 +16,7 @@ export const App = () => {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/home" element={<HomePage />} />
@@ -28,3 +29,6 @@ export const App = () => {
 
 //TODO:
 //Video 02:27:26
+//Fill Readme file after finish
+//Write comments on functions
+//fullName change from insert value to state value
