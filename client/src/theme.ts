@@ -1,4 +1,18 @@
-// color design tokens export
+import { Palette } from "@mui/icons-material";
+
+interface Palette {
+  primary: { dark: string; main: string; light: string };
+  neutral: {
+    dark: string;
+    main: string;
+    mediumMain: string;
+    medium: string;
+    light: string;
+  };
+  background: { default: string; alt: string };
+  mode: string;
+}
+
 export const colorTokens = {
   grey: {
     0: "#FFFFFF",

@@ -1,5 +1,5 @@
 const LoginPage = () => {
-  return <div>Login Page</div>;
+  return <div>Login Page test</div>;
 };
 
 export default LoginPage;
