@@ -32,3 +32,4 @@ export const App = () => {
 //Fill Readme file after finish
 //Write comments on functions
 //fullName change from insert value to state value
+//Change localhost on backend to server deployed host

@@ -42,8 +42,8 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   // @ts-ignore
   const alt = theme.palette.background.alt;
-  // const fullName = `${user.firstName} ${user.lastName}`;
-  const fullName = "Roman";
+  const fullName = `${user.firstName} ${user.lastName}`;
+  // const fullName = "Roman";
 
   // @ts-ignore
   return (
