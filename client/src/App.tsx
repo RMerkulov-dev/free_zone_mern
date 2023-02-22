@@ -11,9 +11,7 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 export const App = () => {
   const mode = useAppSelector((state) => state.mode);
   // @ts-ignore
-
   const isAuth = Boolean(useAppSelector((state) => state.token));
-
   // @ts-ignore
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
@@ -39,8 +37,10 @@ export const App = () => {
 };
 
 //TODO:
-//Video 02:27:26
+//Video 03:31:13
 //Fill Readme file after finish
 //Write comments on functions
 //fullName change from insert value to state value
 //Change localhost on backend to server deployed host
+//Change localhost in UserImage component
+//Replace all async response with axios
