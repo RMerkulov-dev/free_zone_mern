@@ -11,6 +11,8 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useAppSelector } from "../../hooks";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Twitter from "../../../public/assets/twitter.png";
+import LinkedIn from "../../../public/assets/linkedin.png";
 
 interface UserWidgetProps {
   userId: string;
@@ -83,6 +85,39 @@ const UserWidget = ({ userId, picturePath }: UserWidgetProps) => {
         <ManageAccountsOutlined />
       </FlexBetween>
       <Divider />
+
+      {/* FOURTH ROW */}
+      <Box p="1rem 0">
+        <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
+          Social Profiles
+        </Typography>
+
+        <FlexBetween gap="1rem" mb="0.5rem">
+          <FlexBetween gap="1rem">
+            <img src={Twitter} alt="twitter" />
+            <Box>
+              <Typography color={main} fontWeight="500">
+                Twitter
+              </Typography>
+              <Typography color={medium}>Social Network</Typography>
+            </Box>
+          </FlexBetween>
+          <EditOutlined sx={{ color: main }} />
+        </FlexBetween>
+
+        <FlexBetween gap="1rem">
+          <FlexBetween gap="1rem">
+            <img src={LinkedIn} alt="linkedin" />
+            <Box>
+              <Typography color={main} fontWeight="500">
+                Linkedin
+              </Typography>
+              <Typography color={medium}>Network Platform</Typography>
+            </Box>
+          </FlexBetween>
+          <EditOutlined sx={{ color: main }} />
+        </FlexBetween>
+      </Box>
     </WidgetWrapper>;
   };
   return <div></div>;

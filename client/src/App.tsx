@@ -37,7 +37,7 @@ export const App = () => {
 };
 
 //TODO:
-//Video 03:31:13
+//Video 03:56:58
 //Fill Readme file after finish
 //Write comments on functions
 //fullName change from insert value to state value
