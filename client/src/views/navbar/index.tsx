@@ -42,6 +42,7 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   // @ts-ignore
   const alt = theme.palette.background.alt;
+  // @ts-ignore
   const fullName = `${user.firstName} ${user.lastName}`;
   // const fullName = "Roman";
 
@@ -127,6 +128,7 @@ const Navbar = () => {
       )}
       {/* MOBILE NAV */}
       {!isNonMobileScreens && isMobileMenuToggled && (
+        // @ts-ignore
         <Box
           position="fixed"
           right="0"
@@ -199,6 +201,7 @@ const Navbar = () => {
       )}
       {/* MOBILE NAV */}
       {!isNonMobileScreens && isMobileMenuToggled && (
+        // @ts-ignore
         <Box
           position="fixed"
           right="0"
