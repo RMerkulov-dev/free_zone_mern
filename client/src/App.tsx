@@ -37,10 +37,12 @@ export const App = () => {
 };
 
 //TODO:
-//Video 03:56:58
+//Video 04:26:45
 //Fill Readme file after finish
 //Write comments on functions
 //fullName change from insert value to state value
 //Change localhost on backend to server deployed host
+//REPLACE ALL localhost 3001 in every files
 //Change localhost in UserImage component
+//Change localhost in PostWidget component
 //Replace all async response with axios
