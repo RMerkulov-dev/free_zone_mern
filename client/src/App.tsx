@@ -50,3 +50,4 @@ export const App = () => {
 //Add toasts
 //Add one BASE_URL in helpers and change localhost or server deploy link
 //Improve code
+//Resolve problem with likes
