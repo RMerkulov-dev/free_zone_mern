@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { CSSProperties } from "react";
 
 interface ImageProps {
-  image: string;
+  image: string | undefined;
   size: string;
 }
 

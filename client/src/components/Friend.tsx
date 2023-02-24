@@ -10,7 +10,7 @@ interface FriendProps {
   friendId: string;
   name: string;
   subtitle: string;
-  userPicturePath: string;
+  userPicturePath?: string | undefined;
 }
 
 interface Friend {
