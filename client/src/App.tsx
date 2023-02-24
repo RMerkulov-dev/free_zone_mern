@@ -45,4 +45,7 @@ export const App = () => {
 //REPLACE ALL localhost 3001 in every files
 //Change localhost in UserImage component
 //Change localhost in PostWidget component
+//Change localhost in PostsWidget component
 //Replace all async response with axios
+//Add toasts
+//Add one BASE_URL in helpers and change localhost or server deploy link
