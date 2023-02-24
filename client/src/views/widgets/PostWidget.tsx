@@ -53,22 +53,16 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    try {
-      const response = await axios.patch(
-        `${BASE_URL}/posts/${postId}/like`,
-        { userId: loggedInUserId },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const updatedPost = response.data;
-      dispatch(setPost({ post: updatedPost }));
-    } catch (error) {
-      console.error(error);
-    }
+    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: loggedInUserId }),
+    });
+    const updatedPost = await response.json();
+    dispatch(setPost({ post: updatedPost }));
   };
 
   return (
