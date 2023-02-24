@@ -1,0 +1,56 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { string } from "yup";
+
+const initialState = {
+  mode: "light",
+  user: null,
+  token: null,
+  posts: [],
+};
+
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    setMode: (state) => {
+      state.mode = state.mode === "light" ? "dark" : "light";
+    },
+    setLogin: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+    },
+    setLogout: (state) => {
+      state.user = null;
+      state.token = null;
+    },
+    setFriends: (state, action) => {
+      if (state.user) {
+        // @ts-ignore
+        state.user.friends = action.payload.friends;
+      } else {
+        console.error("User friends is non-existent:(");
+      }
+    },
+    setPosts: (state, action) => {
+      state.posts = action.payload.posts;
+    },
+    setPost: (state, action) => {
+      const updatedPosts = state.posts.map((post) => {
+        // @ts-ignore
+        if (post._id === action.payload.post._id) return action.payload.post;
+        return post;
+      });
+      // @ts-ignore
+      state.posts = updatedPosts;
+    },
+  },
+});
+
+export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost } =
+  authSlice.actions;
+export default authSlice.reducer;
+
+//TODO:
+// export type RootState = ReturnType<typeof store.getState>;
+// export type AppDispatch = typeof store.dispatch;
+// and hooks
