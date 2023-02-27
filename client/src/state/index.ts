@@ -1,7 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { string } from "yup";
 
-const initialState = {
+interface User {
+  name: string;
+  email: string;
+  friends: string[];
+}
+
+interface AuthState {
+  mode: "light" | "dark";
+  user: User | null;
+  token: string | null;
+  posts: any[];
+}
+
+const initialState: AuthState = {
   mode: "light",
   user: null,
   token: null,
@@ -15,7 +27,7 @@ export const authSlice = createSlice({
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
     },
-    setLogin: (state, action) => {
+    setLogin: (state, action: PayloadAction<{ user: User; token: string }>) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
@@ -23,25 +35,23 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
-    setFriends: (state, action) => {
+    setFriends: (state, action: PayloadAction<{ friends: string[] }>) => {
       if (state.user) {
-        // @ts-ignore
         state.user.friends = action.payload.friends;
       } else {
         console.error("User friends is non-existent:(");
       }
     },
-    setPosts: (state, action) => {
+    setPosts: (state, action: PayloadAction<{ posts: any[] }>) => {
       state.posts = action.payload.posts;
     },
-    setPost: (state, action) => {
-      const updatedPosts = state.posts.map((post) => {
-        // @ts-ignore
-        if (post._id === action.payload.post._id) return action.payload.post;
+    setPost: (state, action: PayloadAction<{ post: any }>) => {
+      state.posts = state.posts.map((post) => {
+        if (post._id === action.payload.post._id) {
+          return action.payload.post;
+        }
         return post;
       });
-      // @ts-ignore
-      state.posts = updatedPosts;
     },
   },
 });
