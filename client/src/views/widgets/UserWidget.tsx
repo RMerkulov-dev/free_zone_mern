@@ -15,7 +15,7 @@ import { AiFillLinkedin } from "react-icons/ai";
 import { FaTwitterSquare } from "react-icons/fa";
 
 interface UserWidgetProps {
-  userId: string;
+  userId: string | undefined;
   picturePath: string;
 }
 
@@ -24,8 +24,11 @@ const UserWidget = ({ userId, picturePath }: UserWidgetProps) => {
   const { palette } = useTheme();
   const navigate = useNavigate();
   const token = useAppSelector((state) => state.token);
+  // @ts-ignore
   const dark = palette.neutral.dark;
+  // @ts-ignore
   const medium = palette.neutral.medium;
+  // @ts-ignore
   const main = palette.neutral.main;
 
   const getUser = async () => {
@@ -79,7 +82,9 @@ const UserWidget = ({ userId, picturePath }: UserWidgetProps) => {
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            <Typography color={medium}>
+              {(friends as Array<any>).length} friends
+            </Typography>
           </Box>
         </FlexBetween>
         <ManageAccountsOutlined />

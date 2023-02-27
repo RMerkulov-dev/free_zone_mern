@@ -8,8 +8,12 @@ import MyPostWidget from "../widgets/MyPostWidget";
 import PostsWidget from "../widgets/PostsWidget";
 import UserWidget from "../widgets/UserWidget";
 
+interface User {
+  picturePath: string;
+}
+
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const { userId } = useParams();
   const token = useAppSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -40,7 +44,7 @@ const ProfilePage = () => {
         justifyContent="center"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget userId={userId} picturePath={user.picturePath} />
+          <UserWidget userId={userId} picturePath={user?.picturePath} />
           <Box m="2rem 0" />
           <FriendListWidget userId={userId} />
         </Box>

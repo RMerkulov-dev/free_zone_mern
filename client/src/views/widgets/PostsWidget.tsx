@@ -4,7 +4,7 @@ import { setPosts } from "../../state";
 import PostWidget from "./PostWidget";
 
 interface PostsWidgetProps {
-  userId: string;
+  userId: string | undefined;
   isProfile: boolean;
 }
 
