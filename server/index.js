@@ -54,7 +54,7 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
-app.use("users", postsRoutes);
+app.use("/posts", postsRoutes);
 
 //MONGOOSE SETUP
 
