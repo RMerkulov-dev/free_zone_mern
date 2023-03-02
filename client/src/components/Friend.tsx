@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setFriends } from "../state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
+import axios from "axios";
 
 interface FriendProps {
   friendId: string;
@@ -36,18 +37,21 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }: FriendProps) => {
   const isFriend = friends.find((friend: Friend) => friend._id === friendId);
 
   const patchFriend = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    dispatch(setFriends({ friends: data }));
+    try {
+      const response = await axios.patch(
+        `http://localhost:3001/users/${_id}/${friendId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      dispatch(setFriends({ friends: response.data }));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
