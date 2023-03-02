@@ -26,6 +26,7 @@ import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { setPosts } from "../../state";
 import axios from "axios";
+import { BASE_URL } from "../../helpers/consts";
 
 interface MyPostProps {
   picturePath: string;
@@ -57,13 +58,9 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
         formData.append("picturePath", image.name);
       }
 
-      const response = await axios.post(
-        `http://localhost:3001/posts`,
-        formData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/posts`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       dispatch(setPosts({ posts: response.data }));
       setImage(null);

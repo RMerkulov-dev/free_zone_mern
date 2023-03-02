@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { setFriends } from "../../state";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import axios from "axios";
+import { BASE_URL } from "../../helpers/consts";
 
 interface FriendListProps {
   userId: string | undefined;
@@ -19,12 +20,9 @@ const FriendListWidget = ({ userId }: FriendListProps) => {
 
   const getFriends = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/users/${userId}/friends`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/users/${userId}/friends`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       dispatch(setFriends({ friends: response.data }));
     } catch (err) {

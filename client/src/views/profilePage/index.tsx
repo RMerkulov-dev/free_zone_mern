@@ -8,6 +8,7 @@ import MyPostWidget from "../widgets/MyPostWidget";
 import PostsWidget from "../widgets/PostsWidget";
 import UserWidget from "../widgets/UserWidget";
 import axios from "axios";
+import { BASE_URL } from "../../helpers/consts";
 
 interface User {
   picturePath: string;
@@ -21,12 +22,9 @@ const ProfilePage = () => {
 
   const getUser = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/users/${userId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/users/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setUser(response.data);
     } catch (err) {
       console.log(err);

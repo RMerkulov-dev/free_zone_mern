@@ -3,6 +3,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks";
 import { setPosts } from "../../state";
 import PostWidget from "./PostWidget";
 import axios from "axios";
+import { BASE_URL } from "../../helpers/consts";
 
 interface PostsWidgetProps {
   userId: string | undefined;
@@ -16,7 +17,7 @@ const PostsWidget = ({ userId, isProfile = false }: PostsWidgetProps) => {
 
   const getPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/posts", {
+      const response = await axios.get(`${BASE_URL}/posts`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -28,12 +29,9 @@ const PostsWidget = ({ userId, isProfile = false }: PostsWidgetProps) => {
 
   const getUserPosts = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/posts/${userId}/posts`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/posts/${userId}/posts`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       dispatch(setPosts({ posts: response.data }));
     } catch (err) {
       console.log(err);

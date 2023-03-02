@@ -6,6 +6,7 @@ import { setFriends } from "../state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 import axios from "axios";
+import { BASE_URL } from "../helpers/consts";
 
 interface FriendProps {
   friendId: string;
@@ -39,7 +40,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }: FriendProps) => {
   const patchFriend = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:3001/users/${_id}/${friendId}`,
+        `${BASE_URL}/users/${_id}/${friendId}`,
         {},
         {
           headers: {
