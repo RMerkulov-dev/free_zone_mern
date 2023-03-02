@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillLinkedin } from "react-icons/ai";
 import { FaTwitterSquare } from "react-icons/fa";
+import axios from "axios";
 
 interface UserWidgetProps {
   userId: string | undefined;
@@ -32,12 +33,10 @@ const UserWidget = ({ userId, picturePath }: UserWidgetProps) => {
   const main = palette.neutral.main;
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      method: "GET",
+    const response = await axios.get(`http://localhost:3001/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    const data = await response.json();
-    setUser(data);
+    setUser(response.data);
   };
 
   useEffect(() => {
