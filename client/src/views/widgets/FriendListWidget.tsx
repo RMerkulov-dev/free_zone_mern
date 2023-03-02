@@ -4,6 +4,7 @@ import WidgetWrapper from "../../components/WidgetWrapper";
 import { useEffect } from "react";
 import { setFriends } from "../../state";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import axios from "axios";
 
 interface FriendListProps {
   userId: string | undefined;
@@ -17,15 +18,18 @@ const FriendListWidget = ({ userId }: FriendListProps) => {
   const friends = useAppSelector((state) => state.user.friends);
 
   const getFriends = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${userId}/friends`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    const data = await response.json();
-    dispatch(setFriends({ friends: data }));
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/users/${userId}/friends`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      dispatch(setFriends({ friends: response.data }));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
