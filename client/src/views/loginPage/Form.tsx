@@ -16,6 +16,7 @@ import { setLogin } from "../../state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
 import axios from "axios";
+import { BASE_URL } from "../../helpers/consts";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -86,10 +87,7 @@ const Form = () => {
 
   const login = async (values, onSubmitProps) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/auth/login",
-        values
-      );
+      const response = await axios.post(`${BASE_URL}/auth/login`, values);
       if (response.data) {
         dispatch(
           setLogin({
