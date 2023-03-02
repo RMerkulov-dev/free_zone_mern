@@ -15,6 +15,7 @@ import { useAppDispatch } from "../../hooks";
 import { setLogin } from "../../state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
+import axios from "axios";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -62,38 +63,46 @@ const Form = () => {
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    const savedUser = await savedUserResponse.json();
-    onSubmitProps.resetForm();
 
-    if (savedUser) {
-      setPageType("login");
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/auth/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      onSubmitProps.resetForm();
+
+      if (response.data) {
+        setPageType("login");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
-    if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-          token: loggedIn.token,
-        })
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/auth/login",
+        values
       );
-      navigate("/home");
+      if (response.data) {
+        dispatch(
+          setLogin({
+            user: response.data.user,
+            token: response.data.token,
+          })
+        );
+        navigate("/home");
+      }
+    } catch (err) {
+      console.log(err);
     }
+    onSubmitProps.resetForm();
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {

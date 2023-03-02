@@ -25,6 +25,7 @@ import WidgetWrapper from "../../components/WidgetWrapper";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { setPosts } from "../../state";
+import axios from "axios";
 
 interface MyPostProps {
   picturePath: string;
@@ -45,26 +46,31 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
   const medium = palette.neutral.medium;
 
   const handlePost = async () => {
-    const formData = new FormData();
-    formData.append("userId", _id);
-    formData.append("description", post);
+    try {
+      const formData = new FormData();
+      formData.append("userId", _id);
+      formData.append("description", post);
 
-    if (image) {
-      formData.append("picture", image);
-      // @ts-ignore
-      formData.append("picturePath", image.name);
+      if (image) {
+        formData.append("picture", image);
+        // @ts-ignore
+        formData.append("picturePath", image.name);
+      }
+
+      const response = await axios.post(
+        `http://localhost:3001/posts`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      dispatch(setPosts({ posts: response.data }));
+      setImage(null);
+      setPost("");
+    } catch (err) {
+      console.log(err);
     }
-
-    const response = await fetch(`http://localhost:3001/posts`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData,
-    });
-
-    const posts = await response.json();
-    dispatch(setPosts({ posts }));
-    setImage(null);
-    setPost("");
   };
 
   return (

@@ -52,7 +52,16 @@ export const likePost = async (req, res) => {
     const { id } = req.params;
     const { userId } = req.body;
     const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
     const isLiked = post.likes.get(userId);
+
+    if (isLiked === undefined) {
+      return res.status(400).json({ message: "Invalid request" });
+    }
 
     if (isLiked) {
       post.likes.delete(userId);
@@ -68,6 +77,6 @@ export const likePost = async (req, res) => {
 
     res.status(200).json(updatedPost);
   } catch (err) {
-    res.status(404).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 };

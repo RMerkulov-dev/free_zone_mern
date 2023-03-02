@@ -13,9 +13,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillLinkedin } from "react-icons/ai";
 import { FaTwitterSquare } from "react-icons/fa";
+import axios from "axios";
 
 interface UserWidgetProps {
-  userId: string;
+  userId: string | undefined;
   picturePath: string;
 }
 
@@ -24,17 +25,18 @@ const UserWidget = ({ userId, picturePath }: UserWidgetProps) => {
   const { palette } = useTheme();
   const navigate = useNavigate();
   const token = useAppSelector((state) => state.token);
+  // @ts-ignore
   const dark = palette.neutral.dark;
+  // @ts-ignore
   const medium = palette.neutral.medium;
+  // @ts-ignore
   const main = palette.neutral.main;
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      method: "GET",
+    const response = await axios.get(`http://localhost:3001/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    const data = await response.json();
-    setUser(data);
+    setUser(response.data);
   };
 
   useEffect(() => {
@@ -79,7 +81,9 @@ const UserWidget = ({ userId, picturePath }: UserWidgetProps) => {
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            <Typography color={medium}>
+              {(friends as Array<any>).length} friends
+            </Typography>
           </Box>
         </FlexBetween>
         <ManageAccountsOutlined />
