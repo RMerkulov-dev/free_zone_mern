@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { setPosts } from "../../state";
 import PostWidget from "./PostWidget";
+import axios from "axios";
 
 interface PostsWidgetProps {
   userId: string | undefined;
@@ -14,24 +15,29 @@ const PostsWidget = ({ userId, isProfile = false }: PostsWidgetProps) => {
   const token = useAppSelector((state) => state.token);
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:3001/posts", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+    try {
+      const response = await axios.get("http://localhost:3001/posts", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      dispatch(setPosts({ posts: response.data }));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getUserPosts = async () => {
-    const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    const data = await response.json();
-    dispatch(setPosts({ posts: data }));
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/posts/${userId}/posts`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      dispatch(setPosts({ posts: response.data }));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
