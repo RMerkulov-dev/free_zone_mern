@@ -66,15 +66,11 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/auth/register",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/auth/register`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       onSubmitProps.resetForm();
 
       if (response.data) {

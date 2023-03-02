@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { CSSProperties } from "react";
+import { BASE_URL } from "../helpers/consts";
 
 interface ImageProps {
   image: string | undefined;
@@ -14,7 +15,7 @@ const UserImage = ({ image, size }: ImageProps) => {
         width={size}
         height={size}
         alt="user"
-        src={`http://localhost:3001/assets/${image}`}
+        src={`${BASE_URL}/assets/${image}`}
       />
     </Box>
   );
