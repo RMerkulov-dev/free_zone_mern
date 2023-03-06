@@ -42,6 +42,15 @@ const initialValuesRegister = {
   occupation: "",
   picture: "",
 };
+type RegisterValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  location: string;
+  occupation: string;
+  picture: File;
+};
 
 const initialValuesLogin = {
   email: "",
@@ -57,10 +66,12 @@ const Form = () => {
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
 
-  const register = async (values, onSubmitProps) => {
+  // @ts-ignore
+  const register = async (values: RegisterValues, onSubmitProps: any) => {
     // this allows us to send form info with image
     const formData = new FormData();
     for (let value in values) {
+      // @ts-ignore
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
@@ -80,7 +91,7 @@ const Form = () => {
       console.log(err);
     }
   };
-
+  // @ts-ignore
   const login = async (values, onSubmitProps) => {
     try {
       const response = await axios.post(`${BASE_URL}/auth/login`, values);
@@ -185,7 +196,7 @@ const Form = () => {
                   <Dropzone
                     acceptedFiles=".jpg,.jpeg,.png"
                     multiple={false}
-                    onDrop={(acceptedFiles) =>
+                    onDrop={(acceptedFiles: File[]) =>
                       setFieldValue("picture", acceptedFiles[0])
                     }
                   >
