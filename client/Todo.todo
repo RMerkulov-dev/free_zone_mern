@@ -1,0 +1,7 @@
+-Fill Readme file after finish
+-Write comments on functions
+-Change localhost on backend to server deployed host
+-Add toasts. Better if you will create custom toast
+-Toast need to be after all actions
+-Improve code
+-Not refresh friends count in left My card person
