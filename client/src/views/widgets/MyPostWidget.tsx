@@ -81,6 +81,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
           value={post}
           sx={{
             width: "100%",
+            // @ts-ignore
             backgroundColor: palette.neutral.light,
             borderRadius: "2rem",
             padding: "1rem 2rem",
@@ -175,6 +176,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
           disabled={!post}
           onClick={handlePost}
           sx={{
+            // @ts-ignore
             color: palette.background.alt,
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
