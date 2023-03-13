@@ -56,6 +56,11 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postsRoutes);
 
+// Serve the index.html file for any unmatched routes
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+});
+
 //MONGOOSE SETUP
 
 const PORT = process.env.PORT || 6001;
