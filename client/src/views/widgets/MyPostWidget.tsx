@@ -70,6 +70,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
     }
   };
 
+  // @ts-ignore
   return (
     <WidgetWrapper>
       <FlexBetween gap="1.5rem">
@@ -94,8 +95,10 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
           p="1rem"
         >
           <Dropzone
+            // @ts-ignore
             acceptedFiles=".jpg,.jpeg,.png"
             multiple={false}
+            // @ts-ignore
             onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
           >
             {({ getRootProps, getInputProps }) => (
@@ -112,6 +115,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
                     <p>Add Image Here</p>
                   ) : (
                     <FlexBetween>
+                      {/*@ts-ignore*/}
                       <Typography>{image.name}</Typography>
                       <EditOutlined />
                     </FlexBetween>

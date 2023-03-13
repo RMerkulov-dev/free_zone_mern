@@ -17,6 +17,7 @@ import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
 import axios from "axios";
 import { BASE_URL } from "../../helpers/consts";
+import { FormikHelpers } from "formik";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -33,17 +34,31 @@ const loginSchema = yup.object().shape({
   password: yup.string().required("required"),
 });
 
-const initialValuesRegister = {
+type RegisterValues = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  location: string;
+  occupation: string;
+  picture: File;
+};
+type LoginValues = {
+  email: string;
+  password: string;
+};
+
+const initialValuesRegister: RegisterValues = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
   location: "",
   occupation: "",
-  picture: "",
+  picture: new File([], ""),
 };
 
-const initialValuesLogin = {
+const initialValuesLogin: LoginValues = {
   email: "",
   password: "",
 };
@@ -57,7 +72,10 @@ const Form = () => {
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
 
-  const register = async (values, onSubmitProps) => {
+  const register = async (
+    values: RegisterValues,
+    onSubmitProps: FormikHelpers<RegisterValues>
+  ) => {
     // this allows us to send form info with image
     const formData = new FormData();
     for (let value in values) {
@@ -81,7 +99,10 @@ const Form = () => {
     }
   };
 
-  const login = async (values, onSubmitProps) => {
+  const login = async (
+    values: RegisterValues,
+    onSubmitProps: FormikHelpers<RegisterValues>
+  ) => {
     try {
       const response = await axios.post(`${BASE_URL}/auth/login`, values);
       if (response.data) {
@@ -99,17 +120,20 @@ const Form = () => {
     onSubmitProps.resetForm();
   };
 
-  const handleFormSubmit = async (values, onSubmitProps) => {
+  const handleFormSubmit = async (
+    values: RegisterValues,
+    onSubmitProps: any
+  ) => {
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
 
-  // @ts-ignore
   return (
     <Formik
       onSubmit={handleFormSubmit}
-      initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
+      initialValues={isLogin ? initialValuesLogin : initialValuesRegister} // @ts-ignore
       validationSchema={isLogin ? loginSchema : registerSchema}
+      enableReinitialize={true}
     >
       {({
         values,
@@ -185,7 +209,7 @@ const Form = () => {
                   <Dropzone
                     acceptedFiles=".jpg,.jpeg,.png"
                     multiple={false}
-                    onDrop={(acceptedFiles) =>
+                    onDrop={(acceptedFiles: File[]) =>
                       setFieldValue("picture", acceptedFiles[0])
                     }
                   >

@@ -10,6 +10,7 @@ import FriendListWidget from "../widgets/FriendListWidget";
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
+  // @ts-ignore
   const { _id, picturePath } = useAppSelector((state) => state.user)!;
 
   return (

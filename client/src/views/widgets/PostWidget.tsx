@@ -23,7 +23,7 @@ interface PostWidgetProps {
   location: string;
   picturePath?: string;
   userPicturePath?: string;
-  likes: Map<string, boolean>;
+  likes: { [key: string]: boolean };
   comments: [];
 }
 
@@ -41,11 +41,15 @@ const PostWidget = ({
   const [isComments, setIsComments] = useState(false);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.token);
-  // @ts-ignore
-  const loggedInUserId = useAppSelector((state) => state?.user._id);
-  // @ts-ignore
-  const isLiked = Boolean(likes[loggedInUserId]);
-  const likeCount = Object.keys(likes).length;
+
+  const loggedInUserId = useAppSelector((state) => state?.user!._id);
+
+  console.log(postId);
+
+  const isLiked = loggedInUserId
+    ? Boolean(likes[loggedInUserId as string])
+    : false;
+  const likeCount = likes ? Object.keys(likes).length : 0;
 
   const { palette } = useTheme();
   // @ts-ignore
