@@ -38,6 +38,7 @@ const FriendListWidget = ({ userId }: FriendListProps) => {
   return (
     <WidgetWrapper>
       <Typography
+        // @ts-ignore
         color={palette.neutral.dark}
         variant="h5"
         fontWeight="500"

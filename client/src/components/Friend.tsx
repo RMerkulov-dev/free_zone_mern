@@ -35,6 +35,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }: FriendProps) => {
   // @ts-ignore
   const medium = palette.neutral.medium;
 
+  // @ts-ignore
   const isFriend = friends.find((friend: Friend) => friend._id === friendId);
 
   const patchFriend = async () => {

@@ -79,6 +79,7 @@ const Form = () => {
     // this allows us to send form info with image
     const formData = new FormData();
     for (let value in values) {
+      // @ts-ignore
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
@@ -128,9 +129,12 @@ const Form = () => {
     if (isRegister) await register(values, onSubmitProps);
   };
 
+  // @ts-ignore
+
   return (
     <Formik
       onSubmit={handleFormSubmit}
+      // @ts-ignore
       initialValues={isLogin ? initialValuesLogin : initialValuesRegister} // @ts-ignore
       validationSchema={isLogin ? loginSchema : registerSchema}
       enableReinitialize={true}
@@ -202,11 +206,13 @@ const Form = () => {
                 />
                 <Box
                   gridColumn="span 4"
+                  // @ts-ignore
                   border={`1px solid ${palette.neutral.medium}`}
                   borderRadius="5px"
                   p="1rem"
                 >
                   <Dropzone
+                    // @ts-ignore
                     acceptedFiles=".jpg,.jpeg,.png"
                     multiple={false}
                     onDrop={(acceptedFiles: File[]) =>
@@ -267,6 +273,7 @@ const Form = () => {
                 m: "2rem 0",
                 p: "1rem",
                 backgroundColor: palette.primary.main,
+                // @ts-ignore
                 color: palette.background.alt,
                 "&:hover": { color: palette.primary.main },
               }}
