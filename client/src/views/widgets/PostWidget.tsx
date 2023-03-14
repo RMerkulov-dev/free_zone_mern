@@ -103,7 +103,7 @@ const PostWidget = ({
     }
   };
 
-  useEffect(() => {}, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <WidgetWrapper m="2rem 0">
@@ -186,12 +186,13 @@ const PostWidget = ({
         <Box mt="1rem">
           {comments.map((comment, i) => (
             <Box key={`${name}-${i}`}>
-              <Divider />
+              {/*<Divider />*/}
               <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
                 {comment}
               </Typography>
             </Box>
           ))}
+
           {/*<Divider />*/}
         </Box>
       )}
