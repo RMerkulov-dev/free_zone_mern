@@ -58,7 +58,7 @@ app.use("/posts", postsRoutes);
 
 // Serve the index.html file for any unmatched routes
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 //MONGOOSE SETUP
