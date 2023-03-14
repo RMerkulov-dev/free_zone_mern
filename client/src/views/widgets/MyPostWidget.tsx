@@ -7,6 +7,8 @@ import {
   MicOutlined,
   MoreHorizOutlined,
 } from "@mui/icons-material";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import {
   Box,
   Divider,
@@ -57,6 +59,23 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
         formData.append("picture", image);
         // @ts-ignore
         formData.append("picturePath", image.name);
+      } else {
+        toast.warn(" Please add image", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          icon: <AddPhotoAlternateIcon />,
+          style: {
+            backgroundColor: "rgba(250,250,250,0.53)",
+            borderRadius: "8px",
+            boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+          },
+        });
+        return;
       }
 
       const response = await axios.post(`${BASE_URL}/posts`, formData, {
@@ -66,7 +85,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
       dispatch(setPosts({ posts: response.data }));
       setImage(null);
       setPost("");
-      toast("Your post created!", {
+      toast.success(" Cool! Your post already created", {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -74,9 +93,9 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        icon: <WallpaperIcon />,
         style: {
-          backgroundColor: "rgba(255,255,255,0.53)",
+          backgroundColor: "rgba(250,250,250,0.53)",
           borderRadius: "8px",
           boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
         },
