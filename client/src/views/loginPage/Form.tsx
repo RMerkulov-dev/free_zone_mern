@@ -98,6 +98,21 @@ const Form = () => {
       if (response.data) {
         setPageType("login");
       }
+      toast.success(" Hey! You are registered and amazing!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        icon: <InsertEmoticonIcon />,
+        style: {
+          backgroundColor: "rgba(250,250,250,0.53)",
+          borderRadius: "8px",
+          boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+        },
+      });
     } catch (err) {
       console.log(err);
     }
