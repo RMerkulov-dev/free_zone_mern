@@ -8,6 +8,9 @@ import { useAppSelector } from "./hooks";
 import { useMemo } from "react";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const App = () => {
   const mode = useAppSelector((state) => state.mode);
   // @ts-ignore
@@ -18,6 +21,7 @@ export const App = () => {
     <>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
+          <ToastContainer />
           <CssBaseline />
           <Routes>
             <Route path="/" element={<LoginPage />} />

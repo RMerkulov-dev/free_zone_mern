@@ -18,6 +18,7 @@ import FlexBetween from "../../components/FlexBetween";
 import axios from "axios";
 import { BASE_URL } from "../../helpers/consts";
 import { FormikHelpers } from "formik";
+import { toast } from "react-toastify";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -114,6 +115,21 @@ const Form = () => {
           })
         );
         navigate("/home");
+        toast("Hey! You are logged in", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          style: {
+            backgroundColor: "rgba(255,255,255,0.53)",
+            borderRadius: "8px",
+            boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+          },
+        });
       }
     } catch (err) {
       console.log(err);

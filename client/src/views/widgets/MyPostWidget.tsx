@@ -27,6 +27,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks";
 import { setPosts } from "../../state";
 import axios from "axios";
 import { BASE_URL } from "../../helpers/consts";
+import { toast } from "react-toastify";
 
 interface MyPostProps {
   picturePath: string;
@@ -65,6 +66,21 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
       dispatch(setPosts({ posts: response.data }));
       setImage(null);
       setPost("");
+      toast("Your post created!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        style: {
+          backgroundColor: "rgba(255,255,255,0.53)",
+          borderRadius: "8px",
+          boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+        },
+      });
     } catch (err) {
       console.log(err);
     }
@@ -180,6 +196,10 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
             color: palette.background.alt,
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
+            "&:hover": {
+              cursor: "pointer",
+              color: palette.primary.main,
+            },
           }}
         >
           POST
