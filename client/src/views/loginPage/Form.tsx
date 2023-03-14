@@ -7,6 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -18,6 +19,8 @@ import FlexBetween from "../../components/FlexBetween";
 import axios from "axios";
 import { BASE_URL } from "../../helpers/consts";
 import { FormikHelpers } from "formik";
+import { toast } from "react-toastify";
+import WallpaperIcon from "@mui/icons-material/Wallpaper";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -95,6 +98,21 @@ const Form = () => {
       if (response.data) {
         setPageType("login");
       }
+      toast.success(" Hey! You are registered and amazing!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        icon: <InsertEmoticonIcon />,
+        style: {
+          backgroundColor: "rgba(250,250,250,0.53)",
+          borderRadius: "8px",
+          boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+        },
+      });
     } catch (err) {
       console.log(err);
     }
@@ -114,6 +132,21 @@ const Form = () => {
           })
         );
         navigate("/home");
+        toast.success(" Hey! You are logged in", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          icon: <InsertEmoticonIcon />,
+          style: {
+            backgroundColor: "rgba(250,250,250,0.53)",
+            borderRadius: "8px",
+            boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+          },
+        });
       }
     } catch (err) {
       console.log(err);

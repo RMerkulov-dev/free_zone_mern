@@ -7,6 +7,8 @@ import {
   MicOutlined,
   MoreHorizOutlined,
 } from "@mui/icons-material";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import {
   Box,
   Divider,
@@ -27,6 +29,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks";
 import { setPosts } from "../../state";
 import axios from "axios";
 import { BASE_URL } from "../../helpers/consts";
+import { toast } from "react-toastify";
 
 interface MyPostProps {
   picturePath: string;
@@ -56,6 +59,23 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
         formData.append("picture", image);
         // @ts-ignore
         formData.append("picturePath", image.name);
+      } else {
+        toast.warn(" Please add image", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          icon: <AddPhotoAlternateIcon />,
+          style: {
+            backgroundColor: "rgba(250,250,250,0.53)",
+            borderRadius: "8px",
+            boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+          },
+        });
+        return;
       }
 
       const response = await axios.post(`${BASE_URL}/posts`, formData, {
@@ -65,6 +85,21 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
       dispatch(setPosts({ posts: response.data }));
       setImage(null);
       setPost("");
+      toast.success(" Cool! Your post already created", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        icon: <WallpaperIcon />,
+        style: {
+          backgroundColor: "rgba(250,250,250,0.53)",
+          borderRadius: "8px",
+          boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+        },
+      });
     } catch (err) {
       console.log(err);
     }
@@ -180,6 +215,10 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
             color: palette.background.alt,
             backgroundColor: palette.primary.main,
             borderRadius: "3rem",
+            "&:hover": {
+              cursor: "pointer",
+              color: palette.primary.main,
+            },
           }}
         >
           POST

@@ -4,13 +4,21 @@ import {
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import MapsUgcIcon from "@mui/icons-material/MapsUgc";
+import {
+  Box,
+  Divider,
+  IconButton,
+  InputBase,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import FlexBetween from "../../components/FlexBetween";
 import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
-import { setPost } from "../../state";
+import { addComment, setPost } from "../../state";
 import { BASE_URL } from "../../helpers/consts";
 import axios from "axios";
 
@@ -39,12 +47,15 @@ const PostWidget = ({
   comments,
 }: PostWidgetProps) => {
   const [isComments, setIsComments] = useState(false);
+  const [comment, setComment] = useState("");
+  const [allComments, setAllComments] = useState(comments);
+
+  console.log(allComments);
+
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.token);
 
   const loggedInUserId = useAppSelector((state) => state?.user!._id);
-
-  console.log(postId);
 
   const isLiked = loggedInUserId
     ? Boolean(likes[loggedInUserId as string])
@@ -74,7 +85,33 @@ const PostWidget = ({
     }
   };
 
-  //test
+  //ADD COMMENTS
+
+  const addCommentPost = async (comment: string) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/posts/${postId}/comment`,
+        { comment, userId: loggedInUserId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      dispatch(addComment(response.data.comments));
+      setComment("");
+      setAllComments(response.data.comments);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    setAllComments(comments);
+  }, [comments]);
+
+  // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <WidgetWrapper m="2rem 0">
@@ -113,7 +150,7 @@ const PostWidget = ({
             <IconButton onClick={() => setIsComments(!isComments)}>
               <ChatBubbleOutlineOutlined />
             </IconButton>
-            <Typography>{comments.length}</Typography>
+            <Typography>{allComments.length}</Typography>
           </FlexBetween>
         </FlexBetween>
 
@@ -122,16 +159,49 @@ const PostWidget = ({
         </IconButton>
       </FlexBetween>
       {isComments && (
+        <Box
+          sx={{
+            position: "relative",
+          }}
+        >
+          <InputBase
+            placeholder="Add your comment"
+            onChange={(e) => setComment(e.target.value)}
+            value={comment}
+            sx={{
+              width: "100%",
+              // @ts-ignore
+              backgroundColor: palette.neutral.light,
+              borderRadius: "2rem",
+              padding: "0.5rem 3rem",
+            }}
+          />
+          <MapsUgcIcon
+            onClick={() => addCommentPost(comment)}
+            sx={{
+              position: "absolute",
+              top: "28%",
+              left: "3%",
+              // @ts-ignore
+              backgroundColor: palette.neutral.light,
+              opacity: "0.5",
+              cursor: "pointer",
+            }}
+          />
+        </Box>
+      )}
+      {isComments && (
         <Box mt="1rem">
-          {comments.map((comment, i) => (
+          {allComments.map((comment, i) => (
             <Box key={`${name}-${i}`}>
-              <Divider />
+              {/*<Divider />*/}
               <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
                 {comment}
               </Typography>
             </Box>
           ))}
-          <Divider />
+
+          {/*<Divider />*/}
         </Box>
       )}
     </WidgetWrapper>

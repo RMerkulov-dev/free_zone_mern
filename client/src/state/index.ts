@@ -6,6 +6,17 @@ interface User {
   email: string;
   friends: string[];
 }
+interface Comment {
+  _id: any;
+  text: string;
+  authorId: string;
+  authorName: string;
+  createdAt: Date;
+}
+interface CommentPayload {
+  postId: string;
+  comment: string;
+}
 
 interface AuthState {
   mode: "light" | "dark";
@@ -54,9 +65,24 @@ export const authSlice = createSlice({
         return post;
       });
     },
+    addComment: (state, action: PayloadAction<CommentPayload>) => {
+      const postIndex = state.posts.findIndex(
+        (post) => post._id === action.payload.postId
+      );
+      if (postIndex !== -1) {
+        state.posts[postIndex].comments.push(action.payload.comment);
+      }
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost } =
-  authSlice.actions;
+export const {
+  setMode,
+  setLogin,
+  setLogout,
+  setFriends,
+  setPosts,
+  setPost,
+  addComment,
+} = authSlice.actions;
 export default authSlice.reducer;
