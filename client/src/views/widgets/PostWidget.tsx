@@ -48,6 +48,9 @@ const PostWidget = ({
 }: PostWidgetProps) => {
   const [isComments, setIsComments] = useState(false);
   const [comment, setComment] = useState("");
+  const [allComments, setAllComments] = useState(comments);
+
+  console.log(allComments);
 
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.token);
@@ -98,10 +101,15 @@ const PostWidget = ({
       );
       dispatch(addComment(response.data.comments));
       setComment("");
+      setAllComments(response.data.comments);
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    setAllComments(comments);
+  }, [comments]);
 
   // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -142,7 +150,7 @@ const PostWidget = ({
             <IconButton onClick={() => setIsComments(!isComments)}>
               <ChatBubbleOutlineOutlined />
             </IconButton>
-            <Typography>{comments.length}</Typography>
+            <Typography>{allComments.length}</Typography>
           </FlexBetween>
         </FlexBetween>
 
@@ -184,7 +192,7 @@ const PostWidget = ({
       )}
       {isComments && (
         <Box mt="1rem">
-          {comments.map((comment, i) => (
+          {allComments.map((comment, i) => (
             <Box key={`${name}-${i}`}>
               {/*<Divider />*/}
               <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
