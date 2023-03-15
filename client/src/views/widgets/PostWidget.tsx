@@ -174,7 +174,7 @@ const PostWidget = ({
               // @ts-ignore
               backgroundColor: palette.neutral.light,
               borderRadius: "2rem",
-              padding: "0.5rem 3rem",
+              padding: "0.5rem 4rem",
             }}
           />
           <MapsUgcIcon
@@ -187,6 +187,10 @@ const PostWidget = ({
               backgroundColor: palette.neutral.light,
               opacity: "0.5",
               cursor: "pointer",
+              transition: "transform 0.2s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.1)",
+              },
             }}
           />
         </Box>
