@@ -51,18 +51,22 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 5000 * 5000 * 5, // 5 MB
+    fileSize: 5000 * 5000 * 10, // 10 MB
   },
   fileFilter: (req, file, cb) => {
     if (
       file.mimetype === "image/png" ||
       file.mimetype === "image/jpg" ||
-      file.mimetype === "image/jpeg"
+      file.mimetype === "image/jpeg" ||
+      file.mimetype === "image/jpeg" ||
+      file.mimetype === "image/HEVC"
     ) {
       cb(null, true);
     } else {
       cb(null, false);
-      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+      return cb(
+        new Error("Only .png, .jpg and .jpeg and .HEVC format allowed!")
+      );
     }
   },
 });
