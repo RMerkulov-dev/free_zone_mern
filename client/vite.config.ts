@@ -2,7 +2,7 @@ export default {
   build: {
     rollupOptions: {
       input: {
-        main: "src/main.js",
+        main: "src/index.tsx",
         nested: "src/nested/index.html",
       },
     },
