@@ -5,6 +5,7 @@ import {
   ShareOutlined,
 } from "@mui/icons-material";
 import MapsUgcIcon from "@mui/icons-material/MapsUgc";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {
   Box,
   Divider,
@@ -193,15 +194,21 @@ const PostWidget = ({
       {isComments && (
         <Box mt="1rem">
           {allComments.map((comment, i) => (
-            <Box key={`${name}-${i}`}>
-              {/*<Divider />*/}
+            <Box
+              key={`${name}-${i}`}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                color: palette.primary.main,
+              }}
+            >
+              <AccountCircleIcon />
               <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
                 {comment}
               </Typography>
             </Box>
           ))}
-
-          {/*<Divider />*/}
         </Box>
       )}
     </WidgetWrapper>
