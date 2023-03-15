@@ -13,7 +13,7 @@ const UserImage = ({ image, size }: ImageProps) => {
         <Avatar
           sx={{
             width: "100%",
-            height: "100%",
+            height: "90%",
           }}
         />
       ) : (
