@@ -1,5 +1,4 @@
-import { Box } from "@mui/material";
-import { CSSProperties } from "react";
+import { Avatar, Box } from "@mui/material";
 import { BASE_URL } from "../helpers/consts";
 
 interface ImageProps {
@@ -10,13 +9,22 @@ interface ImageProps {
 const UserImage = ({ image, size }: ImageProps) => {
   return (
     <Box width={size} height={size}>
-      <img
-        style={{ objectFit: "cover", borderRadius: "50%" }}
-        width={size}
-        height={size}
-        alt="user"
-        src={`${BASE_URL}/assets/${image}`}
-      />
+      {!image ? (
+        <Avatar
+          sx={{
+            width: "100%",
+            height: "100%",
+          }}
+        />
+      ) : (
+        <img
+          style={{ objectFit: "cover", borderRadius: "50%" }}
+          width={size}
+          height={size}
+          alt="user"
+          src={`${BASE_URL}/assets/${image}`}
+        />
+      )}
     </Box>
   );
 };
