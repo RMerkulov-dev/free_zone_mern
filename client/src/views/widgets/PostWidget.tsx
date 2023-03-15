@@ -51,7 +51,7 @@ const PostWidget = ({
   const [comment, setComment] = useState("");
   const [allComments, setAllComments] = useState(comments);
 
-  console.log(allComments);
+  const isDisabled = comment.trim() === "";
 
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.token);
@@ -177,22 +177,24 @@ const PostWidget = ({
               padding: "0.5rem 4rem",
             }}
           />
-          <MapsUgcIcon
+          <IconButton
             onClick={() => addCommentPost(comment)}
+            disabled={isDisabled}
             sx={{
               position: "absolute",
-              top: "28%",
+              top: "10%",
               left: "3%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               // @ts-ignore
               backgroundColor: palette.neutral.light,
               opacity: "0.5",
               cursor: "pointer",
-              transition: "transform 0.2s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.1)",
-              },
             }}
-          />
+          >
+            <MapsUgcIcon />
+          </IconButton>
         </Box>
       )}
       {isComments && (
