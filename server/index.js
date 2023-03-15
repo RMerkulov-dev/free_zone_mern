@@ -53,22 +53,22 @@ const upload = multer({
   limits: {
     fileSize: 5000 * 5000 * 10, // 10 MB
   },
-  fileFilter: (req, file, cb) => {
-    if (
-      file.mimetype === "image/png" ||
-      file.mimetype === "image/jpg" ||
-      file.mimetype === "image/jpeg" ||
-      file.mimetype === "image/jpeg" ||
-      file.mimetype === "image/HEVC"
-    ) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(
-        new Error("Only .png, .jpg and .jpeg and .HEVC format allowed!")
-      );
-    }
-  },
+  // fileFilter: (req, file, cb) => {
+  //   if (
+  //     file.mimetype === "image/png" ||
+  //     file.mimetype === "image/jpg" ||
+  //     file.mimetype === "image/jpeg" ||
+  //     file.mimetype === "image/jpeg" ||
+  //     file.mimetype === "image/HEVC"
+  //   ) {
+  //     cb(null, true);
+  //   } else {
+  //     cb(null, false);
+  //     return cb(
+  //       new Error("Only .png, .jpg and .jpeg and .HEVC format allowed!")
+  //     );
+  //   }
+  // },
 });
 
 //ROUTES WITH FILES
