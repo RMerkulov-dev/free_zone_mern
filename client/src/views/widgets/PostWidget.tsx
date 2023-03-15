@@ -112,7 +112,34 @@ const PostWidget = ({
     setAllComments(comments);
   }, [comments]);
 
-  // eslint-disable-line react-hooks/exhaustive-deps
+  const LikeTouch = () => {
+    const [show, setShow] = useState(true);
+
+    useEffect(() => {
+      setTimeout(() => {
+        setShow(false);
+      }, 100);
+    }, []);
+
+    return (
+      <>
+        {show && (
+          <FavoriteOutlined
+            sx={{
+              color: "rgba(177, 181, 185, 0.57)",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+              width: "100px",
+              height: "100px",
+              transition: "1s",
+            }}
+          />
+        )}
+      </>
+    );
+  };
 
   return (
     <WidgetWrapper m="2rem 0">
@@ -125,15 +152,18 @@ const PostWidget = ({
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
-      {picturePath && (
-        <img
-          width="100%"
-          height="auto"
-          alt="post"
-          style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`${BASE_URL}/assets/${picturePath}`}
-        />
-      )}
+      <Box onClick={patchLike} sx={{ cursor: "pointer", position: "relative" }}>
+        {isLiked && <LikeTouch />}
+        {picturePath && (
+          <img
+            width="100%"
+            height="auto"
+            alt="post"
+            style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+            src={`${BASE_URL}/assets/${picturePath}`}
+          />
+        )}
+      </Box>
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
