@@ -53,6 +53,10 @@ const upload = multer({
   limits: {
     fileSize: 5000 * 5000 * 10, // 10 MB
   },
+  fileFilter: (req, file, cb) => {
+    // accept all file types
+    cb(null, true);
+  },
   // fileFilter: (req, file, cb) => {
   //   if (
   //     file.mimetype === "image/png" ||
