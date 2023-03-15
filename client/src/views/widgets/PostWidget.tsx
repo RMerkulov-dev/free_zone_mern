@@ -51,7 +51,7 @@ const PostWidget = ({
   const [comment, setComment] = useState("");
   const [allComments, setAllComments] = useState(comments);
 
-  console.log(allComments);
+  const isDisabled = comment.trim() === "";
 
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.token);
@@ -174,41 +174,49 @@ const PostWidget = ({
               // @ts-ignore
               backgroundColor: palette.neutral.light,
               borderRadius: "2rem",
-              padding: "0.5rem 3rem",
+              padding: "0.5rem 4rem",
             }}
           />
-          <MapsUgcIcon
+          <IconButton
             onClick={() => addCommentPost(comment)}
+            disabled={isDisabled}
             sx={{
               position: "absolute",
-              top: "28%",
+              top: "10%",
               left: "3%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               // @ts-ignore
               backgroundColor: palette.neutral.light,
               opacity: "0.5",
               cursor: "pointer",
             }}
-          />
+          >
+            <MapsUgcIcon />
+          </IconButton>
         </Box>
       )}
       {isComments && (
         <Box mt="1rem">
-          {allComments.map((comment, i) => (
-            <Box
-              key={`${name}-${i}`}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                color: palette.primary.main,
-              }}
-            >
-              <AccountCircleIcon />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
-              </Typography>
-            </Box>
-          ))}
+          <Box sx={{ height: "150px", overflow: "scroll" }}>
+            {allComments.map((comment, i) => (
+              <Box
+                key={`${name}-${i}`}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  color: palette.primary.main,
+                }}
+              >
+                <AccountCircleIcon />
+                <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
+                  {comment}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Box>
       )}
     </WidgetWrapper>

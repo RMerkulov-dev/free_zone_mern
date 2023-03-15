@@ -7,6 +7,8 @@ import {
   MicOutlined,
   MoreHorizOutlined,
 } from "@mui/icons-material";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import WallpaperIcon from "@mui/icons-material/Wallpaper";
 import {
@@ -40,6 +42,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
   const [post, setPost] = useState("");
+  const [loading, setLoading] = useState(false);
   const { palette } = useTheme();
   const { _id } = useAppSelector((state) => state.user)!;
   const token = useAppSelector((state) => state.token);
@@ -51,6 +54,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
 
   const handlePost = async () => {
     try {
+      setLoading(true);
       const formData = new FormData();
       formData.append("userId", _id);
       formData.append("description", post);
@@ -85,6 +89,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
       dispatch(setPosts({ posts: response.data }));
       setImage(null);
       setPost("");
+      setLoading(false);
       toast.success(" Cool! Your post already created", {
         position: "top-center",
         autoClose: 1000,
@@ -221,7 +226,13 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
             },
           }}
         >
-          POST
+          {/*POST*/}
+          {loading && (
+            <Box sx={{ display: "flex" }}>
+              <CircularProgress sx={{ color: "#706d6d" }} size={20} />
+            </Box>
+          )}
+          {!loading && "POST"}
         </Button>
       </FlexBetween>
     </WidgetWrapper>

@@ -7,6 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -68,6 +69,8 @@ const initialValuesLogin: LoginValues = {
 
 const Form = () => {
   const [pageType, setPageType] = useState("login");
+  const [loading, setLoading] = useState(false);
+
   const { palette } = useTheme();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -88,6 +91,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     try {
+      setLoading(true);
       const response = await axios.post(`${BASE_URL}/auth/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -98,6 +102,7 @@ const Form = () => {
       if (response.data) {
         setPageType("login");
       }
+      setLoading(false);
       toast.success(" Hey! You are registered and amazing!", {
         position: "top-center",
         autoClose: 1000,
@@ -123,6 +128,7 @@ const Form = () => {
     onSubmitProps: FormikHelpers<RegisterValues>
   ) => {
     try {
+      setLoading(true);
       const response = await axios.post(`${BASE_URL}/auth/login`, values);
       if (response.data) {
         dispatch(
@@ -131,6 +137,7 @@ const Form = () => {
             token: response.data.token,
           })
         );
+        setLoading(false);
         navigate("/home");
         toast.success(" Hey! You are logged in", {
           position: "top-center",
@@ -303,6 +310,8 @@ const Form = () => {
               fullWidth
               type="submit"
               sx={{
+                display: "flex",
+                gap: "10px",
                 m: "2rem 0",
                 p: "1rem",
                 backgroundColor: palette.primary.main,
@@ -312,6 +321,11 @@ const Form = () => {
               }}
             >
               {isLogin ? "LOGIN" : "REGISTER"}
+              {loading && (
+                <Box sx={{ display: "flex" }}>
+                  <CircularProgress sx={{ color: "#706d6d" }} size={20} />
+                </Box>
+              )}
             </Button>
             <Typography
               onClick={() => {
