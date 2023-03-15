@@ -229,7 +229,7 @@ const PostWidget = ({
       )}
       {isComments && (
         <Box mt="1rem">
-          <Box sx={{ height: "150px", overflow: "scroll" }}>
+          <Box sx={{ maxHeight: "100px", overflow: "scroll" }}>
             {allComments.map((comment, i) => (
               <Box
                 key={`${name}-${i}`}
