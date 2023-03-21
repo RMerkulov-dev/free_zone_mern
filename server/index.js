@@ -14,9 +14,9 @@ import postsRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
-import User from "./models/User.js";
-import Post from "./models/Post.js";
-import { users, posts } from "./data/index.js";
+// import User from "./models/User.js";
+// import Post from "./models/Post.js";
+// import { users, posts } from "./data/index.js";
 
 //CONFIGURATIONS
 
@@ -43,13 +43,52 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
+  fileFilter: function (req, file, cb) {
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+    if (!allowedTypes.includes(file.mimetype)) {
+      const error = new Error("Wrong file type");
+      error.code = "LIMIT_FILE_TYPES";
+      return cb(error, false);
+    }
+    if (file.size > 5 * 5024 * 5024) {
+      // 5MB limit
+      const error = new Error("File too large");
+      error.code = "LIMIT_FILE_SIZE";
+      return cb(error, false);
+    }
+    cb(null, true);
+  },
 });
+
 const upload = multer({ storage });
 
 //ROUTES WITH FILES
 
-app.post("/auth/register", upload.single("picture"), register);
-app.post("/posts", verifyToken, upload.single("picture"), createPost);
+app.post(
+  "/auth/register",
+  upload.single("picture"),
+  register,
+  register,
+  (err, req, res, next) => {
+    if (err instanceof multer.MulterError && err.code === "LIMIT_FILE_TYPES") {
+      return res.status(400).json({ error: "Wrong file type" });
+    }
+    next(err);
+  }
+);
+app.post(
+  "/posts",
+  verifyToken,
+  upload.single("picture"),
+  createPost,
+  (err, req, res, next) => {
+    if (err instanceof multer.MulterError && err.code === "LIMIT_FILE_TYPES") {
+      return res.status(400).json({ error: "Wrong file type" });
+    }
+    next(err);
+  }
+);
+
 //ROTES
 
 app.use("/auth", authRoutes);
