@@ -106,7 +106,28 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
         },
       });
     } catch (err) {
-      console.log(err);
+      // Check if error is related to file size
+
+      // @ts-ignore
+      if (err.response.data.error === "File too large") {
+        toast.warn("Image size is too large", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          icon: <WallpaperIcon />,
+          style: {
+            backgroundColor: "rgba(250,250,250,0.53)",
+            borderRadius: "8px",
+            boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+          },
+        });
+      } else {
+        console.log(err);
+      }
     }
   };
 
