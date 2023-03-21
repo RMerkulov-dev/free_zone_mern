@@ -22,6 +22,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks";
 import { addComment, setPost } from "../../state";
 import { BASE_URL } from "../../helpers/consts";
 import axios from "axios";
+import SharedLayout from "../../components/SharedLayout";
 
 interface PostWidgetProps {
   key: string;
@@ -50,6 +51,7 @@ const PostWidget = ({
   const [isComments, setIsComments] = useState(false);
   const [comment, setComment] = useState("");
   const [allComments, setAllComments] = useState(comments);
+  const [shared, setShared] = useState(false);
 
   const isDisabled = comment.trim() === "";
 
@@ -142,7 +144,12 @@ const PostWidget = ({
   };
 
   return (
-    <WidgetWrapper m="2rem 0">
+    <WidgetWrapper
+      m="2rem 0"
+      sx={{
+        overflow: "hidden",
+      }}
+    >
       <Friend
         friendId={postUserId}
         name={name}
@@ -184,10 +191,26 @@ const PostWidget = ({
             <Typography>{allComments.length}</Typography>
           </FlexBetween>
         </FlexBetween>
-
-        <IconButton>
-          <ShareOutlined />
-        </IconButton>
+        <Box
+          sx={{
+            position: "relative",
+          }}
+        >
+          <IconButton>
+            <ShareOutlined onClick={() => setShared(!shared)} />
+          </IconButton>
+          {shared && (
+            <Box
+              sx={{
+                position: "absolute",
+                right: "45px",
+                top: 0,
+              }}
+            >
+              <SharedLayout />
+            </Box>
+          )}
+        </Box>
       </FlexBetween>
       {isComments && (
         <Box
