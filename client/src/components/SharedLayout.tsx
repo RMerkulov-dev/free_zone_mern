@@ -16,15 +16,13 @@ const SharedLayout = () => {
     <Box
       sx={{
         display: "flex",
-        gap: "5px",
+        gap: ["5px", "10px", "15px"],
       }}
     >
       <FacebookShareButton url={SHARED_URL}>
         <FacebookIcon size={33} round={true} />
       </FacebookShareButton>
-      <FacebookShareButton url={SHARED_URL}>
-        <FacebookMessengerIcon size={33} round={true} />
-      </FacebookShareButton>
+
       <LineShareButton url={SHARED_URL}>
         <LinkedinIcon size={33} round={true} />
       </LineShareButton>
