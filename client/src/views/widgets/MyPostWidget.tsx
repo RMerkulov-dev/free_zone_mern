@@ -107,7 +107,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
       });
     } catch (err) {
       // Check if error is related to file size
-
+      setLoading(false);
       // @ts-ignore
       if (err.response.data.error === "File too large") {
         toast.warn("Image size is too large", {

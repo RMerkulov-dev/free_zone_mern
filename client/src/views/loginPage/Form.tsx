@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -105,7 +106,7 @@ const Form = () => {
       setLoading(false);
       toast.success(" Hey! You are registered and amazing!", {
         position: "top-center",
-        autoClose: 1000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -119,6 +120,22 @@ const Form = () => {
         },
       });
     } catch (err) {
+      toast.error("Something wrong!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        icon: <SentimentVeryDissatisfiedIcon />,
+        style: {
+          backgroundColor: "rgba(250,250,250,0.53)",
+          borderRadius: "8px",
+          boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+        },
+      });
+      setLoading(false);
       console.log(err);
     }
   };
@@ -141,7 +158,7 @@ const Form = () => {
         navigate("/home");
         toast.success(" Hey! You are logged in", {
           position: "top-center",
-          autoClose: 1000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -156,6 +173,22 @@ const Form = () => {
         });
       }
     } catch (err) {
+      toast.error(" Hey Bro! Please register first", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        icon: <SentimentVeryDissatisfiedIcon />,
+        style: {
+          backgroundColor: "rgba(250,250,250,0.53)",
+          borderRadius: "8px",
+          boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+        },
+      });
+      setLoading(false);
       console.log(err);
     }
     onSubmitProps.resetForm();
