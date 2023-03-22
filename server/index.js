@@ -14,7 +14,6 @@ import postsRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
-import { v4 as uuidv4 } from "uuid";
 // import User from "./models/User.js";
 // import Post from "./models/Post.js";
 // import { users, posts } from "./data/index.js";
