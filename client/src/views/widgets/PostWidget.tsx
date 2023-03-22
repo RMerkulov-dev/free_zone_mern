@@ -196,8 +196,8 @@ const PostWidget = ({
             position: "relative",
           }}
         >
-          <IconButton>
-            <ShareOutlined onClick={() => setShared(!shared)} />
+          <IconButton onClick={() => setShared(!shared)}>
+            <ShareOutlined />
           </IconButton>
           {shared && (
             <Box
