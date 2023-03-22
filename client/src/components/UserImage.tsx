@@ -10,12 +10,7 @@ const UserImage = ({ image, size }: ImageProps) => {
   return (
     <Box width={size} height={size}>
       {!image ? (
-        <Avatar
-          sx={{
-            width: "100%",
-            height: "90%",
-          }}
-        />
+        <Avatar />
       ) : (
         <img
           style={{ objectFit: "cover", borderRadius: "50%" }}
