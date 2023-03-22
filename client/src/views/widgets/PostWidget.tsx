@@ -114,34 +114,34 @@ const PostWidget = ({
     setAllComments(comments);
   }, [comments]);
 
-  const LikeTouch = () => {
-    const [show, setShow] = useState(true);
+  // const LikeTouch = () => {
+  //   const [show, setShow] = useState(true);
+  //
+  //   useEffect(() => {
+  //     setTimeout(() => {
+  //       setShow(false);
+  //     }, 100);
+  //   }, []);
 
-    useEffect(() => {
-      setTimeout(() => {
-        setShow(false);
-      }, 100);
-    }, []);
-
-    return (
-      <>
-        {show && (
-          <FavoriteOutlined
-            sx={{
-              color: "rgba(177, 181, 185, 0.57)",
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%,-50%)",
-              width: "100px",
-              height: "100px",
-              transition: "1s",
-            }}
-          />
-        )}
-      </>
-    );
-  };
+  //   return (
+  //     <>
+  //       {show && (
+  //         <FavoriteOutlined
+  //           sx={{
+  //             color: "rgba(177, 181, 185, 0.57)",
+  //             position: "absolute",
+  //             top: "50%",
+  //             left: "50%",
+  //             transform: "translate(-50%,-50%)",
+  //             width: "100px",
+  //             height: "100px",
+  //             transition: "1s",
+  //           }}
+  //         />
+  //       )}
+  //     </>
+  //   );
+  // };
 
   return (
     <WidgetWrapper
@@ -159,10 +159,10 @@ const PostWidget = ({
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
-      <Box onClick={patchLike} sx={{ cursor: "pointer", position: "relative" }}>
-        {isLiked && <LikeTouch />}
+      <Box sx={{ cursor: "pointer", position: "relative" }}>
         {picturePath && (
           <img
+            onClick={patchLike}
             width="100%"
             height="auto"
             alt="post"
