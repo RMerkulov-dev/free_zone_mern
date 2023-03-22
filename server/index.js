@@ -41,10 +41,7 @@ const storage = multer.diskStorage({
     cb(null, "./public/assets");
   },
   filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
+    cb(null, file.originalname);
   },
   fileFilter: function (req, file, cb) {
     const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
