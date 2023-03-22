@@ -42,15 +42,7 @@ const storage = multer.diskStorage({
     cb(null, "./public/assets");
   },
   filename: function (req, file, cb) {
-    const uniqueId = uuidv4(); // generate a unique ID for each file
-    const fileNameParts = file.originalname
-      .split(".")
-      .map((part) => part.toLowerCase()); // split the original file name into parts
-    const fileExtension = fileNameParts.pop(); // extract the file extension
-    const newFileName = `${fileNameParts.join(
-      "."
-    )}_${uniqueId}.${fileExtension}`; // generate a new name for the file
-    cb(null, newFileName);
+    cb(null, file.originalname);
   },
   fileFilter: function (req, file, cb) {
     const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -59,7 +51,7 @@ const storage = multer.diskStorage({
       error.code = "LIMIT_FILE_TYPES";
       return cb(error, false);
     }
-    if (file.size > 5 * 1024 * 1024) {
+    if (file.size > 5 * 5024 * 5024) {
       // 5MB limit
       const error = new Error("File too large");
       error.code = "LIMIT_FILE_SIZE";
