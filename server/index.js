@@ -38,7 +38,10 @@ mongoose.set("strictQuery", false);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public/assets");
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
