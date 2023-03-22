@@ -104,7 +104,7 @@ const Navbar = () => {
                 p: "0.25rem 1rem",
                 "& .MuiSvgIcon-root": {
                   pr: "0.25rem",
-                  width: "3rem",
+                  width: "2rem",
                 },
                 "& .MuiSelect-select:focus": {
                   backgroundColor: neutralLight,
@@ -253,7 +253,7 @@ const Navbar = () => {
                   p: "0.25rem 1rem",
                   "& .MuiSvgIcon-root": {
                     pr: "0.25rem",
-                    width: "3rem",
+                    width: "2rem",
                   },
                   "& .MuiSelect-select:focus": {
                     backgroundColor: neutralLight,
