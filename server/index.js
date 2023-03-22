@@ -14,6 +14,7 @@ import postsRoutes from "./routes/posts.js";
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
+import { v4 as uuidv4 } from "uuid";
 // import User from "./models/User.js";
 // import Post from "./models/Post.js";
 // import { users, posts } from "./data/index.js";
@@ -41,7 +42,15 @@ const storage = multer.diskStorage({
     cb(null, "./public/assets");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    const uniqueId = uuidv4(); // generate a unique ID for each file
+    const fileNameParts = file.originalname
+      .split(".")
+      .map((part) => part.toLowerCase()); // split the original file name into parts
+    const fileExtension = fileNameParts.pop(); // extract the file extension
+    const newFileName = `${fileNameParts.join(
+      "."
+    )}_${uniqueId}.${fileExtension}`; // generate a new name for the file
+    cb(null, newFileName);
   },
   fileFilter: function (req, file, cb) {
     const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
@@ -50,7 +59,7 @@ const storage = multer.diskStorage({
       error.code = "LIMIT_FILE_TYPES";
       return cb(error, false);
     }
-    if (file.size > 5 * 5024 * 5024) {
+    if (file.size > 5 * 1024 * 1024) {
       // 5MB limit
       const error = new Error("File too large");
       error.code = "LIMIT_FILE_SIZE";
