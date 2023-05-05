@@ -55,6 +55,15 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postsRoutes);
 
+//versel test
+app.get("/", (req, res) => {
+  res.send("Express JS on Vercel");
+});
+
+app.get("/ping", (req, res) => {
+  res.send("pong 🏓");
+});
+
 const PORT = process.env.PORT || 6001;
 mongoose
   .connect(process.env.MONGO_URL, {
