@@ -3,11 +3,7 @@
     "baseUrl": "src",
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": false,
@@ -20,14 +16,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": [
-      "vite/client",
-      "@testing-library/jest-dom"
-    ]
+    "types": ["vite/client", "@testing-library/jest-dom", "cypress", "node"]
   },
-  "include": [
-    "src",
-    "../typing.d.ts",
-    "node_modules/vitest/globals.d.ts"
-  ]
+  "include": ["src", "../typing.d.ts", "node_modules/vitest/globals.d.ts", "**/*.ts"]
 }

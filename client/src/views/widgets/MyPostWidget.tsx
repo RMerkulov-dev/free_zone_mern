@@ -6,11 +6,11 @@ import {
   ImageOutlined,
   MicOutlined,
   MoreHorizOutlined,
-} from "@mui/icons-material";
-import CircularProgress from "@mui/material/CircularProgress";
+} from '@mui/icons-material';
+import CircularProgress from '@mui/material/CircularProgress';
 
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import WallpaperIcon from "@mui/icons-material/Wallpaper";
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import WallpaperIcon from '@mui/icons-material/Wallpaper';
 import {
   Box,
   Divider,
@@ -20,18 +20,18 @@ import {
   Button,
   IconButton,
   useMediaQuery,
-} from "@mui/material";
+} from '@mui/material';
 
-import FlexBetween from "../../components/FlexBetween";
-import Dropzone from "react-dropzone";
-import UserImage from "../../components/UserImage";
-import WidgetWrapper from "../../components/WidgetWrapper";
-import { useState } from "react";
-import { useAppSelector, useAppDispatch } from "../../hooks";
-import { setPosts } from "../../state";
-import axios from "axios";
-import { BASE_URL } from "../../helpers/consts";
-import { toast } from "react-toastify";
+import FlexBetween from '../../components/FlexBetween';
+import Dropzone from 'react-dropzone';
+import UserImage from '../../components/UserImage';
+import WidgetWrapper from '../../components/WidgetWrapper';
+import { useState } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { setPosts } from '../../state';
+import axios from 'axios';
+import { BASE_URL } from '../../helpers/consts';
+import { toast } from 'react-toastify';
 
 interface MyPostProps {
   picturePath: string;
@@ -41,12 +41,12 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
   const dispatch = useAppDispatch();
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
-  const [post, setPost] = useState("");
+  const [post, setPost] = useState('');
   const [loading, setLoading] = useState(false);
   const { palette } = useTheme();
   const { _id } = useAppSelector((state) => state.user)!;
   const token = useAppSelector((state) => state.token);
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const isNonMobileScreens = useMediaQuery('(min-width: 1000px)');
   // @ts-ignore
   const mediumMain = palette.neutral.mediumMain;
   // @ts-ignore
@@ -56,16 +56,16 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
     try {
       setLoading(true);
       const formData = new FormData();
-      formData.append("userId", _id);
-      formData.append("description", post);
+      formData.append('userId', _id);
+      formData.append('description', post);
 
       if (image) {
-        formData.append("picture", image);
+        formData.append('picture', image);
         // @ts-ignore
-        formData.append("picturePath", image.name);
+        formData.append('picturePath', image.name);
       } else {
-        toast.warn(" Please add image", {
-          position: "top-center",
+        toast.warn(' Please add image', {
+          position: 'top-center',
           autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -74,9 +74,9 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
           progress: undefined,
           icon: <AddPhotoAlternateIcon />,
           style: {
-            backgroundColor: "rgba(250,250,250,0.53)",
-            borderRadius: "8px",
-            boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+            backgroundColor: 'rgba(250,250,250,0.53)',
+            borderRadius: '8px',
+            boxShadow: ' rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;',
           },
         });
         return;
@@ -88,10 +88,10 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
 
       dispatch(setPosts({ posts: response.data }));
       setImage(null);
-      setPost("");
+      setPost('');
       setLoading(false);
-      toast.success(" Cool! Your post already created", {
-        position: "top-center",
+      toast.success(' Cool! Your post already created', {
+        position: 'top-center',
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -100,18 +100,18 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
         progress: undefined,
         icon: <WallpaperIcon />,
         style: {
-          backgroundColor: "rgba(250,250,250,0.53)",
-          borderRadius: "8px",
-          boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+          backgroundColor: 'rgba(250,250,250,0.53)',
+          borderRadius: '8px',
+          boxShadow: ' rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;',
         },
       });
     } catch (err) {
       // Check if error is related to file size
       setLoading(false);
       // @ts-ignore
-      if (err.response.data.error === "File too large") {
-        toast.warn("Image size is too large", {
-          position: "top-center",
+      if (err.response.data.error === 'File too large') {
+        toast.warn('Image size is too large', {
+          position: 'top-center',
           autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -120,9 +120,9 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
           progress: undefined,
           icon: <WallpaperIcon />,
           style: {
-            backgroundColor: "rgba(250,250,250,0.53)",
-            borderRadius: "8px",
-            boxShadow: " rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+            backgroundColor: 'rgba(250,250,250,0.53)',
+            borderRadius: '8px',
+            boxShadow: ' rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;',
           },
         });
       } else {
@@ -137,25 +137,21 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
       <FlexBetween gap="1.5rem">
         <UserImage image={picturePath} size="60px" />
         <InputBase
+          data-test="addPost-input"
           placeholder="What's on your mind..."
           onChange={(e) => setPost(e.target.value)}
           value={post}
           sx={{
-            width: "100%",
+            width: '100%',
             // @ts-ignore
             backgroundColor: palette.neutral.light,
-            borderRadius: "2rem",
-            padding: "1rem 2rem",
+            borderRadius: '2rem',
+            padding: '1rem 2rem',
           }}
         />
       </FlexBetween>
       {isImage && (
-        <Box
-          border={`1px solid ${medium}`}
-          borderRadius="5px"
-          mt="1rem"
-          p="1rem"
-        >
+        <Box border={`1px solid ${medium}`} borderRadius="5px" mt="1rem" p="1rem">
           <Dropzone
             // @ts-ignore
             acceptedFiles=".jpg,.jpeg,.png"
@@ -170,7 +166,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
                   border={`2px dashed ${palette.primary.main}`}
                   p="1rem"
                   width="100%"
-                  sx={{ "&:hover": { cursor: "pointer" } }}
+                  sx={{ '&:hover': { cursor: 'pointer' } }}
                 >
                   <input {...getInputProps()} />
                   {!image ? (
@@ -184,10 +180,7 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
                   )}
                 </Box>
                 {image && (
-                  <IconButton
-                    onClick={() => setImage(null)}
-                    sx={{ width: "15%" }}
-                  >
+                  <IconButton onClick={() => setImage(null)} sx={{ width: '15%' }}>
                     <DeleteOutlined />
                   </IconButton>
                 )}
@@ -197,15 +190,12 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
         </Box>
       )}
 
-      <Divider sx={{ margin: "1.25rem 0" }} />
+      <Divider sx={{ margin: '1.25rem 0' }} />
 
       <FlexBetween>
         <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
           <ImageOutlined sx={{ color: mediumMain }} />
-          <Typography
-            color={mediumMain}
-            sx={{ "&:hover": { cursor: "pointer", color: medium } }}
-          >
+          <Typography color={mediumMain} sx={{ '&:hover': { cursor: 'pointer', color: medium } }}>
             Image
           </Typography>
         </FlexBetween>
@@ -240,20 +230,20 @@ const MyPostWidget = ({ picturePath }: MyPostProps) => {
             // @ts-ignore
             color: palette.background.alt,
             backgroundColor: palette.primary.main,
-            borderRadius: "3rem",
-            "&:hover": {
-              cursor: "pointer",
+            borderRadius: '3rem',
+            '&:hover': {
+              cursor: 'pointer',
               color: palette.primary.main,
             },
           }}
         >
           {/*POST*/}
           {loading && (
-            <Box sx={{ display: "flex" }}>
-              <CircularProgress sx={{ color: "#706d6d" }} size={20} />
+            <Box sx={{ display: 'flex' }}>
+              <CircularProgress sx={{ color: '#706d6d' }} size={20} />
             </Box>
           )}
-          {!loading && "POST"}
+          {!loading && 'POST'}
         </Button>
       </FlexBetween>
     </WidgetWrapper>

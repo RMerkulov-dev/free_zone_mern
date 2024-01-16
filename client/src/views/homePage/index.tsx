@@ -1,14 +1,14 @@
-import { Box, useMediaQuery } from "@mui/material";
-import Navbar from "../navbar";
-import { useAppSelector } from "../../hooks";
-import UserWidget from "../widgets/UserWidget";
-import MyPostWidget from "../widgets/MyPostWidget";
-import PostsWidget from "../widgets/PostsWidget";
-import AdvertWidget from "../widgets/AdvertWidget";
-import FriendListWidget from "../widgets/FriendListWidget";
+import { Box, useMediaQuery } from '@mui/material';
+import Navbar from '../navbar';
+import { useAppSelector } from '../../hooks';
+import UserWidget from '../widgets/UserWidget';
+import MyPostWidget from '../widgets/MyPostWidget';
+import PostsWidget from '../widgets/PostsWidget';
+import AdvertWidget from '../widgets/AdvertWidget';
+import FriendListWidget from '../widgets/FriendListWidget';
 
 const HomePage = () => {
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+  const isNonMobileScreens = useMediaQuery('(min-width:1000px)');
 
   // @ts-ignore
   const { _id, picturePath } = useAppSelector((state) => state.user)!;
@@ -17,18 +17,19 @@ const HomePage = () => {
     <Box>
       <Navbar />
       <Box
+        data-test="main-page"
         width="100%"
         padding="2rem 6%"
-        display={isNonMobileScreens ? "flex" : "block"}
+        display={isNonMobileScreens ? 'flex' : 'block'}
         gap="0.5rem"
         justifyContent="space-between"
       >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+        <Box flexBasis={isNonMobileScreens ? '26%' : undefined}>
           <UserWidget userId={_id} picturePath={picturePath} />
         </Box>
         <Box
-          flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
+          flexBasis={isNonMobileScreens ? '42%' : undefined}
+          mt={isNonMobileScreens ? undefined : '2rem'}
         >
           <MyPostWidget picturePath={picturePath} />
           <PostsWidget userId={_id} isProfile={false} />

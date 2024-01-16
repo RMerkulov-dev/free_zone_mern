@@ -204,7 +204,7 @@ const Form = () => {
         setFieldValue,
         resetForm,
       }) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} data-test="submit-form">
           <Box
             display="grid"
             gap="30px"
@@ -216,6 +216,7 @@ const Form = () => {
             {isRegister && (
               <>
                 <TextField
+                  data-test="firstName-input"
                   label="First Name"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -226,6 +227,7 @@ const Form = () => {
                   sx={{ gridColumn: 'span 2' }}
                 />
                 <TextField
+                  data-test="lastName-input"
                   label="Last Name"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -236,6 +238,7 @@ const Form = () => {
                   sx={{ gridColumn: 'span 2' }}
                 />
                 <TextField
+                  data-test="location-input"
                   label="Location"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -246,7 +249,8 @@ const Form = () => {
                   sx={{ gridColumn: 'span 4' }}
                 />
                 <TextField
-                  label="Location"
+                  data-test="occupation-input"
+                  label="Occupation"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.occupation}
@@ -256,6 +260,7 @@ const Form = () => {
                   sx={{ gridColumn: 'span 4' }}
                 />
                 <Box
+                  data-test="dropzone"
                   gridColumn="span 4"
                   // @ts-ignore
                   border={`1px solid ${palette.neutral?.medium}`}
@@ -291,6 +296,7 @@ const Form = () => {
               </>
             )}
             <TextField
+              data-test="email-input"
               label="Email"
               onBlur={handleBlur}
               onChange={handleChange}
@@ -301,6 +307,7 @@ const Form = () => {
               sx={{ gridColumn: 'span 4' }}
             />
             <TextField
+              data-test="password-input"
               label="Password"
               type="password"
               onBlur={handleBlur}
@@ -316,6 +323,7 @@ const Form = () => {
           {/*BUTTONS*/}
           <Box>
             <Button
+              data-test="button-submit"
               fullWidth
               type="submit"
               sx={{
@@ -337,6 +345,7 @@ const Form = () => {
               )}
             </Button>
             <Typography
+              data-test="login_or_register"
               onClick={() => {
                 setPageType(isLogin ? 'register' : 'login');
                 resetForm();
